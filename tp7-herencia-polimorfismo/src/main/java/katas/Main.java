@@ -8,6 +8,10 @@ import katas.figuras.Rectangulo;
 import katas.empleados.Empleado;
 import katas.empleados.EmpleadoPlanta;
 import katas.empleados.EmpleadoTemporal;
+import katas.animales.Animal;
+import katas.animales.Perro;
+import katas.animales.Gato;
+import katas.animales.Vaca;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +19,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        //ejecutarKata1Vehiculos();
-        //ejecutarKata2Figuras();
+        ejecutarKata1Vehiculos();
+        ejecutarKata2Figuras();
         ejecutarKata3Empleados();
+        ejecutarKata4Animales();
     }
 
     public static void ejecutarKata1Vehiculos() {
@@ -98,5 +103,60 @@ public class Main {
         System.out.println("Total empleados planta: " + contadorPlanta);
         System.out.println("Total empleados temporales: " + contadorTemporal);
         System.out.println("Total sueldos: $" + totalSueldos);
+    }
+
+    public static void ejecutarKata4Animales() {
+        System.out.println("\n\n=== KATA 4: ANIMALES Y COMPORTAMIENTO SOBRESCRITO ===\n");
+
+        // Usar List para mayor flexibilidad
+        List<Animal> animales = new ArrayList<>();
+        animales.add(new Perro("Lyon"));
+        animales.add(new Gato("Whiskers"));
+        animales.add(new Vaca("Lola"));
+        animales.add(new Perro("Indio"));
+        animales.add(new Gato("Luna"));
+
+        System.out.println("--- Sonidos de Animales (Polimorfismo) ---");
+        for (Animal animal : animales) {
+            animal.hacerSonido(); // Polimorfismo: cada animal hace su sonido
+        }
+
+        System.out.println("\n--- Descripción de Animales ---");
+        for (Animal animal : animales) {
+            animal.describirAnimal(); // Polimorfismo: cada animal se describe diferente
+        }
+
+        System.out.println("\n--- Verificación de Tipos con instanceof ---");
+        int perros = 0, gatos = 0, vacas = 0;
+
+        for (Animal animal : animales) {
+            if (animal instanceof Perro) {
+                perros++;
+                System.out.println(animal.getNombre() + " es un Perro");
+            } else if (animal instanceof Gato) {
+                gatos++;
+                System.out.println(animal.getNombre() + " es un Gato");
+            } else if (animal instanceof Vaca) {
+                vacas++;
+                System.out.println(animal.getNombre() + " es una Vaca");
+            }
+        }
+
+        System.out.println("\n--- Resumen ---");
+        System.out.println("Total perros: " + perros);
+        System.out.println("Total gatos: " + gatos);
+        System.out.println("Total vacas: " + vacas);
+        System.out.println("Total animales: " + animales.size());
+
+        // Demostración adicional: upcasting y downcasting
+        System.out.println("\n--- Demostración de Upcasting ---");
+        Animal animalGenerico = new Perro("Rex"); // Upcasting implícito
+        animalGenerico.hacerSonido(); // Ejecuta Perro.hacerSonido()
+
+        System.out.println("\n--- Demostración de Downcasting Seguro ---");
+        if (animalGenerico instanceof Perro) {
+            Perro perroEspecifico = (Perro) animalGenerico; // Downcasting seguro
+            System.out.println("Downcasting exitoso: " + perroEspecifico.getNombre() + " es un perro");
+        }
     }
 }
